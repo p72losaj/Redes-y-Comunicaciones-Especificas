@@ -5,7 +5,7 @@ int val;
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(13,OUTPUT);
+  pinMode(13,OUTPUT); // Puerto/Pin 13 como salida
   Serial.begin(9600);
   while(!Serial){;}
 }

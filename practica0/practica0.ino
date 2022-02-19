@@ -1,13 +1,10 @@
 void setup() {
   // put your setup code here, to run once:
-  byte lectura = 0;
-  for(int i=0; i< 8; i++){
-    lectura = digitalRead(i); //Cargamos en una variable byte el valor capturado por la entrada digital i
-    // Mostramos el valor de la entrada digital
-    Serial.print("Estado del boton: ");
-    Serial.println(lectura);
-    delay(100); // Pausamos 100 ms entre una carga y otra de la variable tipo byte que se captura
-  }
+  Serial.begin(9600);
+  DDRD = B11111111; // Utilizamos D pues es del 0 al 7 y B porque es binario
+  byte valor;
+  valor = digitalRead(0); 
+  Serial.println(valor);
 }
 
 void loop() {

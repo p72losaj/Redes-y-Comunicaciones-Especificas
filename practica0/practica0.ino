@@ -1,12 +1,24 @@
+/*******************************************************
+* Redes y Comunicaciones Especificas
+* Practica 0
+* Realizado por Jaime Lorenzo Sanchez
+********************************************************/
+
 void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  DDRD = B11111111; // Utilizamos D pues es del 0 al 7 y B porque es binario
-  byte valor;
-  valor = digitalRead(0); 
-  Serial.println(valor);
+  Serial.begin(9600); // Inicializamos el serial con un ratio de 9600 bps
+  while(!Serial){; } // Necesario para el uso de Serial
+  // Mostramos los puertos y su valor
+  for(int i=0; i < 8; i++){
+    // Mostramos el numero de puerto
+    Serial.print("Puerto: ");
+    Serial.print(i);
+    byte valor = digitalRead(i); // Cargamos en una variable tipo byte el valor obtenido por la entrada digital
+    // Mostramos el valor cargado del puerto en un formato binario
+    Serial.print(" -> Valor del puerto: ");
+    Serial.println(valor);
+    delay(900); // Espera de 900 ms
+  }
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop () {
 }

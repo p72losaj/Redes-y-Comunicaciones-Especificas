@@ -8,10 +8,10 @@
 ********************************************************/
 
 // Pin de entrada -> Leemos la informacion
-const int entrada[] = {2,3,4,5,6,7,8,9};
+int entrada[8] = {2,3,4,5,6,7,8,9};
 // Pin de salida -> Sacamos la informacion
-const int salida[] = {10,11,12,13,A0,A1,A2,A3};
-byte valores = 0;
+int salida[8] = {10,11,12,13,A0,A1,A2,A3};
+byte valores;
 byte contador = 0;
 
 void setup() {
@@ -33,14 +33,15 @@ void loop () {
   for(int i=0; i<8; i++){
     digitalWrite(salida[i], bitRead(contador,i));
   }
-}
-// Escribimos los valores de entrada en la variable de entrada
-for(int i=0; i<8; i++){
-  bitWrite(entrada,i,digitalRead(entrada[i]));
-}
-// Imprimimos los valores por terminal
-for(int i=0; i < 8; i++){
-  Serial.println(bitRead(entrada,7-i), BIN);
-}
+  // Escribimos los valores de entrada en la variable de entrada
+  for(int i=0; i<8; i++){
+    bitWrite(valores,i,digitalRead(entrada[i]));
+  }
+  // Imprimimos los valores por terminal
+  for(int i=0; i < 8; i++){
+    Serial.println(bitRead(valores, 7-i), BIN);
+  }
+  Serial.println("#############################");
 // Realizamos una espera de 1 segundo
 delay(1000);
+}

@@ -67,22 +67,101 @@ void loop(){
 
  /*
   * Analisis de los datos por Jaime Lorenzo Sanchez
-  * 1) Señal senoidal de 5 voltios de amplitud y una fecuencia de 1000 Hz -> Ver las graficas del directorio senoidal
-  * 1 hz -> Imagen2
-  * 50 Hz -> Imagen4
-  * 100 Hz -> Imagen5
-  * 1khz -> Imagen1
-  * 1500 Hz -> Imagen6
-  * 3000 Hz -> Imagen7
-  * 5000 Hz -> Imagen8
-  * 10 Khz -> Imagen3
+  * Este analisis se ha realizado mediante un estudio de las imagenes almacenadas en el directorio images.
+  * Además, se ha utilizado un intervalo de tiempo entre la obtención de cada muestra en cada frecuencia utilizada de 0 ms
+  * Para ver los valores reales obtenidos, ver el archivo graphics.py ( se recomienda usar un bloc de notas, como gedit)
+  * 
+  * 1) Señal senoidal de 5 voltios de amplitud y una fecuencia de 1000 Hz
+  * 
+  * -> Señal senoidal con una frecuencia de 1 hz:
+  * Tras la obtención de 20 muestras, se genera una señal senoidal como la mostrada en la imagen correspondiente.
+  * Sin embargo, no podemos realizar un estudio de la señal con los datos obtenidos. Una posible solución es aumentar el tiempo 
+  * entre la obtención de cada muestra ( se realiza mediante la función delay(x), siendo x el tiempo en ms)
+  * 
+  * -> Señal senoidal con una frecuencia de 50 Hz:
+  * Tras la obtención de 20 muestras, se genera una señal senoidal como la mostrada en la imagen correspondiente.
+  * Sin embargo, no podemos realizar un estudio de la señal con los datos obtenidos. Una posible solución es aumentar el tiempo 
+  * entre la obtención de cada muestra ( se realiza mediante la función delay(x), siendo x el tiempo en ms)
+  * 
+  * -> Señal senoidal con una frecuencia de 100 Hz:
+  * Tras la obtención de 20 muestras, se genera una señal senoidal como la mostrada en la imagen correspondiente.
+  * Sin embargo, no podemos realizar un estudio de la señal con los datos obtenidos. Una posible solución es aumentar el tiempo 
+  * entre la obtención de cada muestra ( se realiza mediante la función delay(x), siendo x el tiempo en ms)
+  * 
+  * -> Señal senoidal con una frecuencia de 1000 Hz:
+  * Tras la obtención de 20 muestras, se genera una señal senoidal como la mostrada en la imagen correspondiente.
+  * En este caso, si podemos realizar un estudio de la señal obtenida. Podemos comprobar tanto la evolución de la señal como su
+  * periodicidad, así como observar que la diferencia de amplitud de la señal ( diferencia entre el voltaje obtenido en el punto 
+  * máximo global de la señal y el voltaje obtenido en el punto mínimo global de la señal)
+  * 
+  * -> Señal senoidal con una frecuencia de 1500 Hz
+  * Tras la obtención de 20 muestras, se genera una señal senoidal como la mostrada en la imagen correspondiente.
+  * En este caso, si podemos realizar un estudio de la señal obtenida. Podemos comprobar tanto la evolución de la señal como su
+  * periodicidad, así como observar que la diferencia de amplitud de la señal ( diferencia entre el voltaje obtenido en el punto 
+  * máximo global de la señal y el voltaje obtenido en el punto mínimo global de la señal)
+  * 
+  * -> Señal senoidal con una frecuencia de 3000 Hz
+  * Tras la obtención de 20 muestras, se genera una señal senoidal como la mostrada en la imagen correspondiente.
+  * En este caso, si podemos realizar un estudio de la señal obtenida. Podemos comprobar tanto la evolución de la señal como su
+  * periodicidad, así como observar que la diferencia de amplitud de la señal ( diferencia entre el voltaje obtenido en el punto 
+  * máximo global de la señal y el voltaje obtenido en el punto mínimo global de la señal)
+  * 
+  * -> Señal senoidal con una frecuencia de 5000 Hz
+  * Tras la obtención de 20 muestras, se genera una señal senoidal como la mostrada en la imagen correspondiente.
+  * En este caso, si podemos realizar un estudio de la señal obtenida. Podemos comprobar tanto la evolución de la señal como su
+  * periodicidad, así como observar que la diferencia de amplitud de la señal ( diferencia entre el voltaje obtenido en el punto 
+  * máximo global de la señal y el voltaje obtenido en el punto mínimo global de la señal)
+  * 
+  * -> Señal senoidal con una frecuencia de 10000 hz
+  * Tras la obtención de 20 muestras, se genera una señal senoidal como la mostrada en la imagen correspondiente.
+  * En este caso, si podemos realizar un estudio de la señal obtenida. Podemos comprobar tanto la evolución de la señal como su
+  * periodicidad, así como observar que la diferencia de amplitud de la señal ( diferencia entre el voltaje obtenido en el punto 
+  * máximo global de la señal y el voltaje obtenido en el punto mínimo global de la señal)
+  * 
   * 2) Realizar el mismo proceso para una señal triangular
-  * 1 hz -> Imagen9
-  * * 50 Hz -> Imagen10
-  * 100 Hz -> Imagen11
-  * 1khz -> Imagen12
-  * 1500 Hz -> Imagen13
-  * 3000 Hz -> Imagen14
-  * 5000 Hz -> Imagen15
-  * 10 Khz -> Imagen16
+  * 
+  * -> Señal triangular con una frecuencia de 1 hz
+  * Tras la obtención de 20 muestras, se genera una señal triangular como la mostrada en la imagen correspondiente.
+  * Sin embargo, no podemos realizar un estudio de la señal con los datos obtenidos. Una posible solución es aumentar el tiempo 
+  * entre la obtención de cada muestra ( se realiza mediante la función delay(x), siendo x el tiempo en ms)
+  * 
+  * -> Señal triangular con una frecuencia de 50 Hz
+  * Tras la obtención de 20 muestras, se genera una señal triangular como la mostrada en la imagen correspondiente.
+  * Sin embargo, no podemos realizar un estudio de la señal con los datos obtenidos. Una posible solución es aumentar el tiempo 
+  * entre la obtención de cada muestra ( se realiza mediante la función delay(x), siendo x el tiempo en ms)
+  * 
+  * -> Señal triangular con una frecuencia de 100 Hz
+  * Tras la obtención de 20 muestras, se genera una señal triangular como la mostrada en la imagen correspondiente.
+  * Sin embargo, no podemos realizar un estudio de la señal con los datos obtenidos. Una posible solución es aumentar el tiempo 
+  * entre la obtención de cada muestra ( se realiza mediante la función delay(x), siendo x el tiempo en ms)
+  * 
+  * -> Señal triangular con una frecuencia de 1000 hz
+  * Tras la obtención de 20 muestras, se genera una señal triangular como la mostrada en la imagen correspondiente.
+  * En este caso, si podemos realizar un estudio de la señal obtenida. Podemos comprobar tanto la evolución de la señal como su
+  * periodicidad, así como observar que la diferencia de amplitud de la señal ( diferencia entre el voltaje obtenido en el punto 
+  * máximo global de la señal y el voltaje obtenido en el punto mínimo global de la señal)
+  * 
+  * -> Señal triangular con una frecuencia de 1500 Hz
+  * Tras la obtención de 20 muestras, se genera una señal triangular como la mostrada en la imagen correspondiente.
+  * En este caso, si podemos realizar un estudio de la señal obtenida. Podemos comprobar tanto la evolución de la señal como su
+  * periodicidad, así como observar que la diferencia de amplitud de la señal ( diferencia entre el voltaje obtenido en el punto 
+  * máximo global de la señal y el voltaje obtenido en el punto mínimo global de la señal)
+  * 
+  * -> Señal triangular con una frecuencia de 3000 Hz
+  * Tras la obtención de 20 muestras, se genera una señal triangular como la mostrada en la imagen correspondiente.
+  * En este caso, si podemos realizar un estudio de la señal obtenida. Podemos comprobar tanto la evolución de la señal como su
+  * periodicidad, así como observar que la diferencia de amplitud de la señal ( diferencia entre el voltaje obtenido en el punto 
+  * máximo global de la señal y el voltaje obtenido en el punto mínimo global de la señal)
+  * 
+  * -> Señal triangular con una frecuencia de 5000 Hz
+  * Tras la obtención de 20 muestras, se genera una señal triangular como la mostrada en la imagen correspondiente.
+  * En este caso, si podemos realizar un estudio de la señal obtenida. Podemos comprobar tanto la evolución de la señal como su
+  * periodicidad, así como observar que la diferencia de amplitud de la señal ( diferencia entre el voltaje obtenido en el punto 
+  * máximo global de la señal y el voltaje obtenido en el punto mínimo global de la señal)
+  * 
+  * -> Señal triangular conn una frecuencia de 10000 Hz
+  * Tras la obtención de 20 muestras, se genera una señal triangular como la mostrada en la imagen correspondiente.
+  * En este caso, si podemos realizar un estudio de la señal obtenida. Podemos comprobar tanto la evolución de la señal como su
+  * periodicidad, así como observar que la diferencia de amplitud de la señal ( diferencia entre el voltaje obtenido en el punto 
+  * máximo global de la señal y el voltaje obtenido en el punto mínimo global de la señal)
   */

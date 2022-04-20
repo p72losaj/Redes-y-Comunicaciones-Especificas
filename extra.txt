@@ -1,0 +1,4 @@
+# Autor: Jaime Lorenzo Sánchez
+# Fimware instalar: XDB4-B -> Finalizador router AT
+# Otro -> XDB4-B -> Zidbid coordinador AT
+# Identificador PAN -> Identificador de la red

@@ -1,0 +1,26 @@
+# Practica 3 Redes y Comunicaciones Específicas
+# Autor: Jaime Lorenzo Sánchez
+
+El programa consiste en un menu de funcionalidades, donde cada funcionalidad realiza lo siguiente:
+
+1) Listar ficheros de la Tarjeta SD -> Inicializa la tarjeta SD y realiza las siguientes comprobaciones:
+
+a) Comprueba si la comunicación de la tarjeta SD es correcta y si la tarjeta SD está presente.
+b) Aporta información sobre el tipo de tarjeta SD.
+c) Comprueba si existe la partición FAT16/FAT32. En caso de no encontrar dicha partición, indica al usuario que comprueba si la tarjeta SD está formateada o no.
+
+2) Crear un fichero de la tarjeta SD
+
+Crea un fichero con el nombre indicado por el usuario a través del canal Serial
+
+3) Borrar un fichero de la Tarjeta SD
+
+Elimina un fichero con el nombre indicado por el usuario a través del canal Serial.
+
+4) Leer contenido de un fichero de la tarjeta SD
+
+Permite leer la información almacenada en un fichero cuyo nombre es indicado por el usuario a través del canal Serial. En caso de no poder abrir dicho fichero, notifica error.
+
+5) Escribir datos tipo caracter en un fichero de la tarjeta SD
+
+Permite escribir caracteres en un fichero indicado por el usuario a través del canal Serial. En caso de no poder abrir el archivo, notifica error.

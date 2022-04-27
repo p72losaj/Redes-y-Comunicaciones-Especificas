@@ -9,6 +9,10 @@ a) Comprueba si la comunicación de la tarjeta SD es correcta y si la tarjeta SD
 b) Aporta información sobre el tipo de tarjeta SD.
 c) Comprueba si existe la partición FAT16/FAT32. En caso de no encontrar dicha partición, indica al usuario que comprueba si la tarjeta SD está formateada o no.
 
+d) en caso de que esté formateada la tarjeta SD, aporta información sobre el tipo de volumen, el tamaño del volumen y el tamaño de la tarjeta SD.
+
+e) Se aporta un lista de los ficheros de la tarjeta SD, dando el nombre, la fecha, la hora y el tamaño en bytes del fichero. 
+
 2) Crear un fichero de la tarjeta SD
 
 Crea un fichero con el nombre indicado por el usuario a través del canal Serial

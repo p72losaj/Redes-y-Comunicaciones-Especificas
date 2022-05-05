@@ -7,7 +7,7 @@
 #include <SPI.h>
 #include <SD.h>
 File myFile;  //variables para definir el fichero (puntero de comienzo del fichero abierto
-String Fichero = "datos_conversion_AD.txt"; // Nombre del fichero
+String Fichero = "datos.txt"; // Nombre del fichero
 const int chipSelect = 4;
 int identificador = 0; // Identificador de la captura
 int pin = 0; // Puerto de entrada analogico
@@ -28,20 +28,26 @@ void setup() {
   }
   Serial.println("inicializada.");
   // Creamos el fichero
-  crearFichero();
-  // Leemos los datos del fichero
-  leerFichero();
+  crearFichero();  
 }
 
 void loop() {
   // nothing happens after setup finishes.
-  //menu();
+  menu();
   // Esperamos a que el usuario indique una opcion
-  //while(Serial.available() == 0){;}
-  //int opcion = Serial.readString().toInt(); // La cadena obtenida la transformamos en un entero
-  //Serial.print(opcion);
+  while(Serial.available() == 0){;}
+  int opcion = Serial.readString().toInt(); // La cadena obtenida la transformamos en un entero
+  Serial.print(opcion);
   
+  // Ver contenido tarjeta microSD
+  if(opcion == 3){
+    Serial.print("Leyendo datos del fichero ");
+    Serial.println(Fichero);
+    leerFichero();
+  }
 }
+
+
 
 void menu(){
   Serial.println("");
@@ -54,6 +60,19 @@ void menu(){
   Serial.write("Indica la opcion: ");
 }
 
+void borrar_fichero() {
+  if (SD.exists(Fichero)) {
+    Serial.print("Borrando  ");
+    Serial.println(Fichero);
+    SD.remove(Fichero);
+    Serial.print(Fichero);
+    Serial.println(" borrado.");
+  } else {
+    Serial.print(Fichero);
+    Serial.println(" no existe.");
+  }
+}
+
 void crearFichero(){
   if (SD.exists(Fichero)) {
     Serial.print(Fichero);
@@ -63,8 +82,14 @@ void crearFichero(){
     Serial.println(Fichero);
     myFile = SD.open(Fichero, FILE_WRITE);
     // Escribimos la primera linea del fichero -> Identificador Numero de muestras Valores estratificados Valores voltaje
-    myFile.write("Identificador Numero de muestras Valores estratificados Valores voltaje");
+    String linea = "";
+    linea = linea + "Identificador";
+    linea = linea + " Numero de muestras ";
+    linea = linea + "Valores estratificados";
+    linea = linea + " Valores voltaje";
+    myFile.println("Identificador Numero_Muestras Valores_Estratificados Valores_Voltaje");
     myFile.close(); 
+    Serial.println(linea);
     Serial.print(Fichero);
     Serial.println(" creado");
   }
@@ -76,7 +101,7 @@ void leerFichero() {
     Serial.println(Fichero);
     Serial.println("El contenido de fichero es:");
     while (myFile.available()) {
-      Serial.println(myFile.read());
+      Serial.write(myFile.read());
     }
     // cerramos el fichero, muy importante:
     myFile.close();

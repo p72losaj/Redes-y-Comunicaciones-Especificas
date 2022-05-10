@@ -10,10 +10,10 @@ File myFile;  //variables para definir el fichero (puntero de comienzo del fiche
 String Fichero = "datos.txt"; // Nombre del fichero
 const int chipSelect = 4;
 int identificador = 0; // Identificador de la captura
-int pin_analogico; // Puerto de entrada analogico
+int pin_analogico = A5; // Puerto de entrada analogico
 int lecturas = 0; // Numero de muestras del canal
 int* muestras; // Vector de muestras de datos cuantificados
-int* muestras2; // Vecotr de muestras en voltaje
+float* muestras2; // Vector de muestras en voltaje
 
 void setup() {
   Serial.begin(9600);
@@ -49,10 +49,9 @@ void loop() {
     // Esperamos a que el usuario introduzca el puerto de entrada analogico
     while(Serial.available() == 0){;}
     // Obtenemos el puerto analogico mediante el canal Serial
-    String puerto = Serial.readString();
-    pin_analogico = puerto.toInt();
+    pin_analogico = Serial.readString().toInt();
     // Mostramos el pin analogico
-    Serial.println(puerto);
+    Serial.println(pin_analogico);
     // Seleccionar el número de muestras.
     Serial.print("Introduce el numero de lecturas del pin analogico: ");
     // Esperamos a que el usuario introduzca el numero de lecturas
@@ -64,7 +63,7 @@ void loop() {
     // Reservamos la memoria del vector de valores cuantificados
     muestras = (int*) malloc (sizeof(int)* lecturas);
     // Reservamos la memoria del vector de valores de voltaje
-    muestras2 = (int*) malloc (sizeof(int)* lecturas);
+    muestras2 = (float*) malloc (sizeof(float)* lecturas);
     /*
      * Mostrar la captura por pantalla del monitor, tanto la información cuantificada como la información convertida a 
      * valores de voltaje. Para ello se debe introducir el valor máximo y mínimo del valor de voltaje de la señal analógica 
@@ -74,9 +73,12 @@ void loop() {
      // Obtenemos los valores del puerto analogico
      for(int i=0; i < lecturas; i++){
         // Almacenamos el valor cuantificado en el vector muestras
+        int valor = analogRead(pin_analogico);
+        Serial.print("Valor : ");
+        Serial.println(valor);
         muestras[i] = analogRead(pin_analogico);
         // Almacenamos el valor del voltaje obtenido en el vector de voltajes
-        muestras2[i] = ((5-0)%1024) * muestras[i];
+        muestras2[i] = ((5-0)/1024) * muestras[i];
      }
      // Mostramos la información cuantificada
      Serial.println("Mostrando la información obtenida");

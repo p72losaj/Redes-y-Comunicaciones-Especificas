@@ -78,7 +78,7 @@ void loop() {
         Serial.println(valor);
         muestras[i] = analogRead(pin_analogico);
         // Almacenamos el valor del voltaje obtenido en el vector de voltajes
-        muestras2[i] = ((5-0)/1024) * muestras[i];
+        muestras2[i] = (5.0/1024.0) * muestras[i];
      }
      // Mostramos la información cuantificada
      Serial.println("Mostrando la información obtenida");

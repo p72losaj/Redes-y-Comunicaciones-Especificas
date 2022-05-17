@@ -29,7 +29,7 @@ void loop() {
   // Mostramos el valor obtenido del puerto digital en formato binario
   Serial.print("Lectura recibida: ");
   Serial.println(pin,BIN);
-  // Enviamos el valor de la señal al emisor por el canal Serial1
+  // Enviamos el valor de la señal por el canal Serial1
   Serial1.print("Lectura recibida por el emisor: ");
   Serial1.println(pin,BIN);
 }

@@ -18,7 +18,7 @@ void loop() {
   // Comprobamos si el puerto del Xbee tiene algun caracter
   if(Serial1.available()){
     // Recibimos el caracter del puerto del Xbee
-    char byte1 = Serial.read();
+    char byte1 = Serial1.read();
     // Imprimimos el caracter leido
     Serial.print("Valor recibido del puerto del Xbee: ");
     Serial.println(byte1);

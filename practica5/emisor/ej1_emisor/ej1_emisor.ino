@@ -30,6 +30,5 @@ void loop() {
   Serial.print("Lectura recibida: ");
   Serial.println(pin,BIN);
   // Enviamos el valor de la señal por el canal Serial1
-  Serial1.print("Lectura recibida por el emisor: ");
   Serial1.println(pin,BIN);
 }

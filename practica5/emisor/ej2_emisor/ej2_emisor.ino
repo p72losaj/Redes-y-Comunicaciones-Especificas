@@ -1,70 +1,100 @@
 /**
- * REDES Y COMUNICACIONES ESPECIFICAS
- * Autor: Jaime Lorenzo Sanchez
- */
-// Variables globales
-int* vector; // vector de muestras
-int lecturas; // Numero de lecturas
 
-void setup() {
-  // put your setup code here, to run once:
+***REDES Y COMUNICACIONES ESPECIFICAS***
+ALUMNO: Jaime Lorenzo Sanchez
+*/
+
+// Variables globales
+
+int* muestras; // Vector de capturas
+float voltage; //Variable que utilizaremos para el calculo del voltaje
+char opcion; //Variable control de opciones
+int numero_muestras=0; // Lo inicializamos a 0 el limitador de capturas.
+
+void setup(){
   Serial.begin(9600); //abre el puerto Serie, configura los datos a 9600 bps.
   Serial1.begin(9600);//abre el puerto Serie1, configura los datos a 9600 bps.
   while (!Serial) {;}
-  Serial.println("SOY EL EMISOR");
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  // Mostramos un menu de funciones
-  menu();
-  // Esperamos a que el usuario seleccione una opcion
+void loop(){
+  //Mensaje de bienvenida
+  Serial.println("BIENVENIDO. SOY EL EMISOR");
+  // Imprimimos el menu
+  menu(); 
+  // Esperamos a que el usuario seleccione la opcion del menu
   while(Serial.available() == 0){;}
-  int opcion = Serial.parseInt();
-  // Mostramos la opcion elegida
+  // Leemos la opcion seleccionada por el usuario
+  opcion = Serial.read();
+  // Mostramos la opcion elegida por el usuario
   Serial.println(opcion);
-  // Hacemos una nueva captura
-  if(opcion == 1){
-    Serial.print("Introduce el numero de lecturas: ");
-    // Esperamos a que el usuario introduzca el numero de lecturas
-    while(Serial.available() == 0){;}
-    // Obtenemos el numero de lecturas
-    lecturas = Serial.parseInt();
-    // Mostramos el numero de lecturas
-    Serial.println(lecturas);
-    // Reservamos la memoria del vector
-    vector = (int*) malloc (sizeof(int)* lecturas);
-    // Obtenemos las muestras a traves del canal Serial
-    for(int i=0; i<lecturas; i++){
-      // Esperamos a que el emisor reciba una lectura
-      while(Serial.available() == 0){;}
-      // Almacenamos la lectura obtenida
-      vector[i] = Serial.parseInt();
-    }
-    
+  switch(opcion){
+      // En esta opción se lee un número de muestras indicadas por el usuario
+      case '1': 
+        //Introducir la cantidad de capturas
+        Serial.print("Introduzca la cantidad capturas: ");
+        // Esperamos a que el usuario introduzca el numero de capturas
+        while(Serial.available()==0){;}
+        // Obtenemos el numero de muestras
+        numero_muestras=Serial.parseInt();
+        // Mostramos el numero de muestras
+        Serial.println(numero_muestras);        
+        // Reservamos la memoria del vector
+        muestras = (int*) malloc (sizeof(int)* numero_muestras);
+        // Se recoge el número de muestras seleccionadas y el cual se introduce en el vector de capturas.
+        for (int i = 0; i < numero_muestras; i++){
+          Serial.print("Vector[");
+          Serial.print(i);
+          Serial.print("]: ");
+          // Esperamos que el usuario introduzca una muestra por el canal Serial
+          while(Serial.available()==0){;}
+          // Almacenamos la muestra en el vector
+          muestras[i] = Serial.parseInt();
+          // Mostramos la muestra
+          Serial.println(muestras[i]);
+        }
+        // se imprime el resultado obtenido 
+        imprimirvector_receptor();
+        // Mostramos de nuevo el menu
+        menu();
+        break;
+
+        case '2':
+        //ESTE CASO SERA PARA IMPRIMIR EL VECTOR DE MUESTRAS RECOGIDO ANTERIORMENTE
+        imprimirvector_receptor();
+        imprimirvector_emisor();
+        // Mostramos el menu
+        menu();
+        break;
   }
-  // Mostramos los datos del vector
-  else if(opcion == 2){
-    // Imprimimos el vector en el receptor
-    Serial1.println("Mostrando las muestras recibidas por el receptor");
-    for(int i=0; i < lecturas; i++){
-      Serial1.println("Lectura Muestra");
-      Serial1.print(i+1);
-      Serial1.println(vector[i]);
-    }
-    // Imprimimos el vector en el emisor
-    Serial.println("Mostrando las muestras recibidas por el emisor");
-    for(int i=0; i<lecturas; i++){
-      Serial.println("Lectura Muestra");
-      Serial.print(i+1);
-      Serial.println(vector[i]);
-    }
-  }
-  
 }
-// Funciones auxiliares
-void menu(){
-  Serial.println("1. Hacer una nueva captura");
-  Serial.println("2. Mostrar datos del vector");
-  Serial.print("Introduce una opcion: ");
+
+//FUNCIONES
+
+void menu(){ // Función del menu
+  Serial.write("--------------------------------------\n");
+  Serial.write("1.- Hacer una nueva captura\n");
+  Serial.write("2.- Mostrar datos del vector\n");
+  Serial.write("Indica la opcion: ");
+  while(Serial.available()==0){;}
+}
+
+//Esta función se encarga de imprimir el vector por el usuario.  
+
+void imprimirvector_receptor(){
+   for (int i=0;i<numero_muestras;i++){
+        // Enviamos el valor de la señal por el canal Serial1
+        Serial1.println(muestras[i]);
+       }
+}
+
+//Esta función se encarga de imprimir el vector en el emisor
+
+void imprimirvector_emisor(){
+   for (int i=0;i<numero_muestras;i++){
+        Serial.print("Vector[");
+        Serial.print(i);
+        Serial.print("]: ");
+        Serial.println(muestras[i]);
+       }
 }

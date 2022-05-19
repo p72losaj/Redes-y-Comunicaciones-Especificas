@@ -69,5 +69,3 @@ void loop() {
   }
 
 }
-
-// Funciones auxiliares

@@ -2,6 +2,12 @@
  * REDES Y COMUNICACIONES ESPECIFICAS
  * Autor: Jaime Lorenzo Sanchez
  */
+
+// Variables globales
+
+char byte1; // Caracter del puerto del Xbee
+int bucle = 0; // Control de bucle
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600); //abre el puerto Serie, configura los datos a 9600 bps.
@@ -18,12 +24,12 @@ void loop() {
   // Comprobamos si el puerto del Xbee tiene algun caracter
   if(Serial1.available()){
     // Recibimos el caracter del puerto del Xbee
-    char byte1 = Serial1.read();
+    byte1 = Serial1.read();
     // Imprimimos el caracter leido
     Serial.print("Valor recibido del puerto del Xbee: ");
     Serial.println(byte1);
     // Verificamos que no se inicie un bucle de impresion
-    int bucle = 0;
+    bucle = 0;
     // Comprobamos si se enciende o se apaga el led
     if(byte1 == '1' and bucle == 0){
       // Encendemos el led

@@ -1,107 +1,99 @@
 /**
- *  REDES Y COMUNICACIONES ESPECIFICAS
- *  Autor: Jaime Lorenzo Sanchez
- *  Programa para envio y recepcion de caracteres a trvés del puerto de comunicaciones inalambrica
- *  del Xbee.
- *  En los monitores/hiperterminales se introducen los caracteres y se pulsa intro para enviarlos
+
+***Redes y comunicaciones específicas***
+ALUMNO: Jaime Lorenzo Sanchez
+
+*/
+
+/*  Programa para enviar y recibir caraceres a través del puerto de comunicaciones inálmbrica del Xbee
+ *  En los monitores/hiperterminales se introduce los caracteres y se pulsa la tecla intro para envdiar
  */
-
-// Parametros globales
-
-char byte1='0'; // Caracter del puerto de Xbee
-int maximo=0; // Maximo enviado por el emisor
-int minimo=0; // Minimo enviado por el emisor
-float media=0; // Media enviada por el emisor
-int contador=0; // Para saber que valor es enviado por el emisor y donde guardarlo
-int imprimir_valores=0; // Controla la impresion por el canal serie de los datos, evitando un bucle infinito
-
+char byte1='0';
+int maxa=0; //Variable donde se almacena el maximo
+int mini=0; //Donde se almacena el minimo
+float media=0; //La media, importante que sea float para dar exactitud
+int contador=0; //El contador, es para saber que valor es el que envia el emisor y donde guardarlo
+int imprimir_valores=0; // Es la variable donde controla, la impresión de los valores sin entrar en bucle
 void setup()
 {
-  //Se abre el puerto Serie y se configuran los datos a 9600 bps.
-  Serial.begin(9600);
-  //Se abre el puerto Serie1 y se configuran los datos a 9600 bps.
-  Serial1.begin(9600);
-  //Se espera de la conexión con la terminal
-  while (!Serial) {; }
-  // Se inicializa el led 13
-  pinMode(LED_BUILTIN, OUTPUT);
+  Serial.begin(9600);//abre el puerto Serie, configura los datos a 9600 bps.
+  Serial1.begin(9600);//abre el puerto Serie1, configura los datos a 9600 bps.
+  while (!Serial) {
+    ; //Espera la conexión con la terminal
+  }
+  pinMode(LED_BUILTIN, OUTPUT); // Inicializamos el led13
+  Serial.print("->SOY EL RECEPTOR\n");
 } 
  
  
 void loop()
 {   
-  Serial.println("<----------- BIENVENIDO. SOY EL RECEPTOR----------->")
-  // Se verifica si el puerto del Xbee tiene algún caracter
-  if(Serial1.available())
+  delay(1000);
+
+  if(Serial1.available()) //verificar si el puerto del Xbee tiene algún caracter
   {
-    if(contador==0)
-    {
-      // Se recibe el carácter del puerto del Xbee
-      byte1 = Serial1.read(); 
-      // Si recibimos una 'Z' es que el emisor va a mandar los valores en un orden en concreto
-      if(byte1=='z')
-      {
-        // Se recibe el valor maximo
-        contador=1; 
-        //Se inicializan las variables
-        maximo=0;
-        minimo=0;
+    if(contador==0){
+      byte1 = Serial1.read(); //recibir carácter del puerto del Xbee
+      if(byte1=='z'){//Si recibimos una 'Z' es que el emisor va a mandar los valores en un orden en concreto
+        contador=1; //Pasamos al contador 1, que es que va a recibir el maximo
+        maxa=0;//inicializamos las variables
+        mini=0;
       }
-    }
-    else if(contador>0 and contador<5)
-    {
-      // Recibimos la media
-      if(contador==3)
-      {
-        float aux2 = Serial1.parseFloat();
+     }
+     else if(contador>0 and contador<5){
+     if(contador==3){//Recibo la media cuando el contador sea igual a 3
+      float aux2 = Serial1.parseFloat();
         media=aux2;
         contador=4;
       }
-      // Recibimos el minimo
-      if(contador==2)
-      {
-        int aux = Serial1.parseInt();
-        minimo=aux;
-        contador=3;
+      
+      if(contador==2){//Recibo el minimo cuando el contador sea 2
+       int aux = Serial1.parseInt();
+          mini=aux;
+          contador=3;
       }
-      // Recibimos el maximo
-      if(contador==1)
-      {
+
+      if(contador==1){//Recibo el maximo cuando el contador sea 1.
         int aux = Serial1.parseInt();
-        maximo=aux;
+        maxa=aux;
         contador=2;
       }
-      // Recibimos el caracter (espacio) de finalizacion de la secuencia a enviar
-      if(contador==4)
-      {
+      
+        if(contador==4){
+          //Por último recibe un "espacio" el receptor del emisor que significa que ha terminado la secuencia de enviar.
         contador=0;
         imprimir_valores=1;
-      }     
-    } 
-    // Mostramos los valores recibidos
-    if(imprimir_valores==1)
-    {
-      Serial.print("Valor maximo obtenido: ");
-      Serial.println(maximo);
-      Serial.print("Valor minimo obtenido: ");
-      Serial.println(minimo);
-      Serial.print("Valor medio obtenido: ");
-      Serial.println(media);
-      imprimir_valores=0;
-      //Controlamos si se activa el led 13 dependiendo si la diferencia es mayor que media.
-      int diferencia= maximo-minimo;
-      // Activamos el led 13
-      if(diferencia > media)
-      {
-        Serial.println("El led 13 se activa");
-        digitalWrite(LED_BUILTIN, HIGH);
-      }
-      // Desactivamos el led 13
-      else
-      {
-        Serial.println("El led 13 se desactiva");
-        digitalWrite(LED_BUILTIN, LOW);
-      }
+      
+       }     
+     } 
+
+    //Hacemos la impresión de los valores
+    if(imprimir_valores==1){
+     Serial.write("--------------------------------------\n");
+     Serial.print("\nValor Recogido Max: ");
+     Serial.print(maxa);
+     Serial.print("\nValor Recogido Min: ");
+     Serial.print(mini);
+     Serial.print("\nValor Recogido Media: ");
+     Serial.print(media);
+     Serial.print("\n");
+     imprimir_valores=0;
+     
+     //Controlamos si se activa el led13 dependiendo si la diferencia es mayor que media.
+     int diferencia= maxa-mini;
+      if(diferencia > media){
+         Serial.print("-> (maximo-minimo) > media ");
+         Serial.print("\nEl led 13 se activa ");
+         digitalWrite(LED_BUILTIN, HIGH);
+       }else{
+        //Si no es mayor que la media apaga el led 13.
+         Serial.print("-> (maximo-minimo) < media ");
+         Serial.print("\nEl led 13 se desactiva\n ");
+         digitalWrite(LED_BUILTIN, LOW);
+       }
+     Serial.write("\n--------------------------------------\n");
+     }
     }
-  }
+  
+ 
 } 

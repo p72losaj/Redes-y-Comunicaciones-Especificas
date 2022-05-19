@@ -3,6 +3,10 @@
  * Autor: Jaime Lorenzo Sanchez
  */
 
+// Variables globales
+
+int puerto = 0; // Puerto digital de escucha
+char pin; // Valor de escucha del puerto digital
 
 void setup() {
   // put your setup code here, to run once:
@@ -21,11 +25,11 @@ void loop() {
   // Esperamos a que el usuario introduzca el puerto de escucha
   while(Serial.available() == 0){;}
   // Obtenemos el puerto de escucha
-  int puerto = Serial.parseInt();
+  puerto = Serial.parseInt();
   // Mostramos el puerto de escucha
   Serial.println(puerto);
   // Recibimos la escucha del puerto digital
-  char pin = digitalRead(puerto);
+  pin = digitalRead(puerto);
   // Mostramos el valor obtenido del puerto digital en formato binario
   Serial.print("Lectura recibida: ");
   Serial.println(pin,BIN);
